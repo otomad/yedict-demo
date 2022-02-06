@@ -1,0 +1,1 @@
+export default "javascript:void(0);";

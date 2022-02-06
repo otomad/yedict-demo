@@ -1,6 +1,7 @@
 @import "~@/style/variable";
 @import "~@/style/function";
 @import "~@/style/ease";
+@import "~@/style/scroll-bar";
 
 $primary-color: #0f72c3;
 $hover-color: (#ccc, #3a3a3a);
@@ -11,7 +12,10 @@ $global-colors: (
 	text-color: #0f1015,
 	hover-color: $hover-color,
 	hover-box-shadow-color: transparentize-list($hover-color, 0.5),
-	header-background-color: (#f0f0f0b3, #14151ab3),
+	header-background-color: (
+		#f0f0f0b3,
+		#14151ab3,
+	),
 	search-bar-border-color: #a69c9c,
 );
 
@@ -61,6 +65,10 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: var(--background-color);
+	overflow-x: hidden;
 }
 
-@import "~@/style/scroll-bar";
+a {
+	text-decoration: none !important;
+	cursor: pointer !important;
+}

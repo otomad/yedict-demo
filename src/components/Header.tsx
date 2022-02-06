@@ -1,11 +1,11 @@
 import React from "react";
 import Root from "./Root";
 import styles from "./Header.module.scss";
-import "font-awesome/css/font-awesome.css";
-import theme from "@/module/night-time";
-import siteName from "@/module/get-site-name";
+import theme from "@/module/NightTime";
+import siteName from "@/module/getSiteName";
 // import logo from "@/img/logo.svg";
 import Logo from "@/components/Logo";
+import Icon from "./Icon";
 
 type ThemeType = "light" | "dark";
 
@@ -68,24 +68,6 @@ export default class Header extends React.Component<{}, IHeaderState> {
 			</header>
 		);
 	}
-}
-
-interface IIconFallbackProps extends React.HTMLAttributes<HTMLElement> {
-	icon?: string;
-	fixedWidth?: boolean;
-}
-
-interface IIconProps extends IIconFallbackProps {
-	icon: string;
-}
-
-function Icon(props: IIconProps): JSX.Element {
-	const iconClass: string = `fa fa-${props.icon}` + (props.fixedWidth ? " fa-fw" : "");
-	const className: string = props.className ? `${props.className} ${iconClass}` : iconClass;
-	const htmlProps = { ...props, className } as IIconFallbackProps;
-	delete htmlProps.icon;
-	delete htmlProps.fixedWidth;
-	return <i {...htmlProps} />;
 }
 
 function goToDownloadPage(): void {

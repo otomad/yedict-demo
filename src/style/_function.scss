@@ -14,3 +14,7 @@
 	}
 	@return $list;
 }
+
+@function color2svg-color($color) {
+	@return unquote("%23" + str-slice(#{$color}, -6));
+}

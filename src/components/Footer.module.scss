@@ -21,11 +21,12 @@ footer.footer {
 			&:not(:first-of-type)::before {
 				content: "｜";
 			}
-			
+
 			> a {
 				text-decoration: none;
-				
-				&:hover {
+
+				&:hover,
+				&:active {
 					color: var(--primary-color) !important;
 				}
 			}

@@ -1,0 +1,25 @@
+table.idiomExample {
+	border-spacing: 0;
+	
+	td {
+		padding: 0.5rem;
+		
+		&:first-of-type {
+			background-color: var(--primary-color);
+			color: var(--background-color);
+			text-align: center;
+		}
+		
+		&:not(:first-of-type) {
+			border-bottom: 1px solid var(--search-bar-border-color);
+		}
+	}
+	
+	$border-radius: 1rem;
+	tr:first-of-type > td:first-of-type {
+		border-top-left-radius: $border-radius;
+	}
+	tr:last-of-type > td:first-of-type {
+		border-bottom-left-radius: $border-radius;
+	}
+}

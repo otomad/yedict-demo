@@ -1,0 +1,24 @@
+@import "~@/style/ease.scss";
+
+.container {
+	padding: 0.5rem 1rem;
+	display: flex;
+
+	> * {
+		position: absolute;
+		width: 100%;
+		left: 0;
+		opacity: 1;
+		transition: all 400ms cubic-bezier(0, 0.5, 0.2, 1);
+		
+		&.hideLeft {
+			left: -100vw;
+			opacity: 0;
+		}
+		
+		&.hideRight {
+			left: 100vw;
+			opacity: 0;
+		}
+	}
+}

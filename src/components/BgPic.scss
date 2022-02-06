@@ -1,10 +1,11 @@
-.bgpic {
-	position: fixed;
-	z-index: -1;
-	opacity: 0.5;
-	user-select: none;
-	width: 100%;
-	height: 100%;
+.bgpic,
+body {
+	// position: fixed;
+	// z-index: -1;
+	/* opacity: 0.5; */
+	// user-select: none;
+	// width: 100%;
+	// height: 100%;
 	background: {
 		image: url("@/img/fx360.png");
 		repeat: no-repeat;

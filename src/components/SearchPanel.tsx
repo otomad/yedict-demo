@@ -20,6 +20,7 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		this.setState({
 			curMode: mode
 		});
+		Root.r.container?.changeMode(mode);
 	}
 	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
 		return Navbar.modes.get(mode) as NavbarTypes.ModeCaptionType;

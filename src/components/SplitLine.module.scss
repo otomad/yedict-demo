@@ -1,0 +1,15 @@
+fieldset.splitLine {
+	padding: 0;
+	border: none;
+	border-top: 1px solid var(--text-color);
+	margin: 0 1.2rem;
+
+	> legend {
+		$letter-spacing: 0.5rem;
+		$margin-left-right: 0.75rem;
+		letter-spacing: $letter-spacing;
+		padding: 0 #{$margin-left-right - $letter-spacing} 0 $margin-left-right;
+		text-align: center;
+		font-weight: bold;
+	}
+}
