@@ -1,0 +1,64 @@
+@import "~@/style/variable";
+@import "~@/style/function";
+@import "~@/style/ease";
+
+$primary-color: #0f72c3;
+$hover-color: (#ccc, #3a3a3a);
+$global-colors: (
+	background-color: #eaebf0,
+	primary-color: $primary-color,
+	primary-box-shadow-color: transparentize($primary-color, 0.5),
+	text-color: #0f1015,
+	hover-color: $hover-color,
+	hover-box-shadow-color: transparentize-list($hover-color, 0.5),
+	header-background-color: (#f0f0f0b3, #14151ab3),
+);
+
+@for $i from 1 through 2 {
+	$selector: if($i == 1, $light-theme, $dark-theme);
+	#{$selector} {
+		@each $key, $item in $global-colors {
+			$light-color: null;
+			$dark-color: null;
+			@if type-of($value: $item) == "list" {
+				$light-color: nth($item, 1);
+				$dark-color: nth($item, 2);
+			} @else {
+				$light-color: $item;
+				$dark-color: invert-light($item);
+			}
+			#{key2css-var($key)}: if($i == 1, $light-color, $dark-color);
+		}
+	}
+}
+
+@font-face {
+	font-family: "TH-Feon";
+	src: url("@/fonts/TH-Feon.ttf");
+}
+
+*:not(.fa):not(code) {
+	&,
+	&::before,
+	&::after {
+		font-family: "Segoe UI", "lucida grande", "lucida sans unicode", lucida, Tahoma, Geneva, Verdana, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Heiti SC", "TH-Feon", Arial, sans-serif;
+		color: var(--text-color);
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	transition: all 250ms $ease-out-cubic, color 100ms $ease-out-cubic, fill 100ms $ease-out-cubic;
+	outline: none !important;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--background-color);
+}
+
+@import "~@/style/scroll-bar";

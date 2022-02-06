@@ -1,0 +1,16 @@
+@function invert-light($color) {
+	$light: 100% - lightness($color);
+	@return hsla(hue($color), saturation($color), $light, alpha($color));
+}
+
+@function key2css-var($key) {
+	@return unquote($string: "--" + $key);
+}
+
+@function transparentize-list($list, $amount) {
+	@for $i from 1 through length($list) {
+		$color: transparentize(nth($list, $i), $amount);
+		$list: set-nth($list, $i, $color);
+	}
+	@return $list;
+}

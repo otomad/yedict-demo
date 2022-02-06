@@ -1,0 +1,75 @@
+@import "~@/style/variable";
+
+.header {
+	background-color: var(--header-background-color);
+	padding: 0.5rem 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 3px 10px transparentize($color: black, $amount: 1 - 0.35);
+	user-select: none;
+
+	button {
+		appearance: none;
+		border: none;
+		cursor: pointer;
+		background-color: transparent;
+		color: var(--text-color);
+		border-radius: 0.25rem;
+		font-size: 1rem;
+		padding: 0.3rem 0.5rem;
+		margin-left: 0.3rem;
+
+		// &,
+		// > i {
+		// 	transition: all 250ms $ease-out-cubic, color 100ms $ease-out-cubic;
+		// }
+
+		&:hover:not(:active) {
+			background-color: var(--hover-color);
+		}
+
+		$focus-border: 0 0 0 0.25rem;
+
+		&:focus {
+			box-shadow: $focus-border var(--hover-box-shadow-color);
+		}
+
+		&:active {
+			background-color: var(--primary-color);
+			color: var(--background-color);
+			> i {
+				transform: scale(0.7);
+			}
+			&:focus {
+				box-shadow: $focus-border var(--primary-box-shadow-color);
+			}
+		}
+	}
+}
+
+@font-face {
+	font-family: "FZTanHeiT-B-GB";
+	src: url("@/fonts/FZTanHeiT-B-GB.woff");
+}
+
+.ziseaLogo {
+	font: {
+		family: "FZTanHeiT-B-GB", sans-serif !important;
+		size: 1.5rem;
+	}
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	embed,
+	.logo {
+		$size: 2rem;
+		display: block;
+		width: $size;
+		height: $size;
+		border-radius: 0.5rem;
+		margin-right: 0.5rem;
+		fill: var(--text-color);
+	}
+}

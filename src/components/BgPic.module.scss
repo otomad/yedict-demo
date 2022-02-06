@@ -1,0 +1,14 @@
+.bgpic {
+	position: fixed;
+	z-index: -1;
+	opacity: 0.5;
+	user-select: none;
+	width: 100%;
+	height: 100%;
+	background: {
+		image: url("@/img/fx360.png");
+		repeat: no-repeat;
+		position: calc(100% - 3rem) calc(100% * (1 - var(--scroll-var)) + 50% * var(--scroll-var));
+	}
+	--scroll-var: 0;
+}
