@@ -70,16 +70,19 @@ export default class Header extends React.Component<{}, IHeaderState> {
 	}
 }
 
-interface IIconProps extends React.HTMLAttributes<HTMLElement> {
+interface IIconFallbackProps extends React.HTMLAttributes<HTMLElement> {
 	icon?: string;
 	fixedWidth?: boolean;
 }
 
+interface IIconProps extends IIconFallbackProps {
+	icon: string;
+}
+
 function Icon(props: IIconProps): JSX.Element {
-	if (!props.icon) throw new TypeError("Icon prop is required!");
 	const iconClass: string = `fa fa-${props.icon}` + (props.fixedWidth ? " fa-fw" : "");
 	const className: string = props.className ? `${props.className} ${iconClass}` : iconClass;
-	const htmlProps: IIconProps = { ...props, className };
+	const htmlProps = { ...props, className } as IIconFallbackProps;
 	delete htmlProps.icon;
 	delete htmlProps.fixedWidth;
 	return <i {...htmlProps} />;

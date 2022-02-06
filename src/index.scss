@@ -12,10 +12,12 @@ $global-colors: (
 	hover-color: $hover-color,
 	hover-box-shadow-color: transparentize-list($hover-color, 0.5),
 	header-background-color: (#f0f0f0b3, #14151ab3),
+	search-bar-border-color: #a69c9c,
 );
 
 @for $i from 1 through 2 {
-	$selector: if($i == 1, $light-theme, $dark-theme);
+	$is-light: $i == 1;
+	$selector: if($is-light, $light-theme, $dark-theme);
 	#{$selector} {
 		@each $key, $item in $global-colors {
 			$light-color: null;
@@ -27,7 +29,7 @@ $global-colors: (
 				$light-color: $item;
 				$dark-color: invert-light($item);
 			}
-			#{key2css-var($key)}: if($i == 1, $light-color, $dark-color);
+			#{key2css-var($key)}: if($is-light, $light-color, $dark-color);
 		}
 	}
 }

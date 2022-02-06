@@ -8,11 +8,11 @@ export type ModeCaptionType = "单字" | "成语" | "两分" | "部首" | "拼�
 
 interface INavbarProps {
 	curMode?: ModeType;
-	parent?: SearchPanel;
+	parent: SearchPanel;
 }
 
 export default class Navbar extends React.Component<INavbarProps, {}> {
-	private static modes = new Map<ModeType, ModeCaptionType>([
+	public static modes = new Map<ModeType, ModeCaptionType>([
 		["char", "单字"],
 		["idiom", "成语"],
 		["half", "两分"],
@@ -29,10 +29,9 @@ export default class Navbar extends React.Component<INavbarProps, {}> {
 	}
 	public constructor(props: INavbarProps) {
 		super(props);
-		if (!props.parent) throw new ReferenceError();
 		props.parent.navBar = this;
 	}
-	private navigate = (mode: ModeType) => this.props.parent?.navigate(mode);
+	private navigate = (mode: ModeType) => this.props.parent.navigate(mode);
 	public render() {
 		return (
 			<nav className={styles.navbar}>
@@ -55,7 +54,7 @@ export default class Navbar extends React.Component<INavbarProps, {}> {
 			</nav>
 		);
 	}
-	private static defaultProps: INavbarProps = {
+	public static defaultProps: Partial<INavbarProps> = {
 		curMode: "char",
 	};
 }

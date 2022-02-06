@@ -4,15 +4,7 @@ import bgpic from "@/components/BgPic.module.scss";
 
 import Header from "./Header";
 import SearchPanel from "./SearchPanel";
-
-const bgpicStyle = {
-	position: "fixed",
-	zIndex: -1,
-	right: "3rem",
-	bottom: "3rem",
-	opacity: 0.5,
-	userSelect: "none",
-};
+import Footer from "./Footer";
 
 export default class Root extends React.Component {
 	//#region 基础组件部分
@@ -41,6 +33,7 @@ export default class Root extends React.Component {
 				<SearchPanel />
 				𰻞𰻞面
 				<div className={bgpic.bgpic} />
+				<Footer />
 			</>
 		);
 	}

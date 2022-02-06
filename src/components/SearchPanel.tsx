@@ -1,10 +1,10 @@
 import React from "react";
 import Root from "./Root";
-import Navbar, * as NavBarTypes from "./Navbar";
+import Navbar, * as NavbarTypes from "./Navbar";
 import SearchBar from "./SearchBar";
 
 interface ISearchPanelState {
-	curMode: NavBarTypes.ModeType;
+	curMode: NavbarTypes.ModeType;
 }
 
 export default class SearchPanel extends React.Component<{}, ISearchPanelState> {
@@ -16,16 +16,19 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 			curMode: "char"
 		};
 	}
-	public navigate(mode: NavBarTypes.ModeType) {
+	public navigate(mode: NavbarTypes.ModeType) {
 		this.setState({
 			curMode: mode
 		});
+	}
+	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
+		return Navbar.modes.get(mode) as NavbarTypes.ModeCaptionType;
 	}
 	public render() {
 		return (
 			<div>
 				<Navbar curMode={this.state.curMode} parent={this} />
-				<SearchBar />
+				<SearchBar placeholder={SearchPanel.getModeCaption(this.state.curMode)} />
 			</div>
 		);
 	}

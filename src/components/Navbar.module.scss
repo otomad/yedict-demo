@@ -1,3 +1,5 @@
+@import "~@/style/ease.scss";
+
 nav.navbar {
 	display: flex;
 	flex-direction: row;
@@ -9,8 +11,8 @@ nav.navbar {
 	.navItem {
 		cursor: pointer;
 		user-select: none;
-		margin: 0.5rem;
-		margin-top: 0.1rem;
+		padding: 0.5rem;
+		padding-top: 0.1rem;
 
 		&::after {
 			content: "";
@@ -22,12 +24,13 @@ nav.navbar {
 			margin-top: 3px;
 			transform: translateX(50%);
 			opacity: 0;
+			transition: all 250ms $ease-out-expo;
 		}
 
 		&:hover,
 		&:focus {
 			color: var(--primary-color);
-			font-weight: bolder;
+			transition: all 250ms $ease-out-cubic;
 		}
 
 		&:active {
@@ -35,9 +38,13 @@ nav.navbar {
 		}
 	
 		&.active {
+			color: var(--primary-color);
+			font-weight: bolder;
+			
 			&::after {
 				transform: translateX(0);
 				opacity: 1;
+				transition: all 350ms $ease-out-back;
 			}
 		}
 	}
