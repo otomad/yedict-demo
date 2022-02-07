@@ -1,4 +1,5 @@
 const config = require("./webpack.config");
+const path = require("path");
 const isRule = (regExp, testExt) => !!regExp.exec(testExt);
 
 config.mode = "production";
@@ -13,5 +14,7 @@ for (const rule of config.module.rules) {
 		break;
 	}
 }
+config.output.path = path.resolve(__dirname, "docs");
+
 
 module.exports(config);
