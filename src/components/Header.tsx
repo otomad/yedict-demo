@@ -70,6 +70,8 @@ export default class Header extends React.Component<{}, IHeaderState> {
 	}
 }
 
-function goToDownloadPage(): void {
-	location.href = "http://cheonhyeong.com/Simplified/download.html";
+export var DOWNLOAD_PAGE_LINK = "http://cheonhyeong.com/Simplified/download.html";
+
+export function goToDownloadPage(): void {
+	location.href = DOWNLOAD_PAGE_LINK;
 }

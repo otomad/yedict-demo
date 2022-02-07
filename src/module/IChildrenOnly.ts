@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export default interface IChildrenOnly {
-	children: string | JSX.Element | JSX.Element[];
+	children: ReactNode;
 }

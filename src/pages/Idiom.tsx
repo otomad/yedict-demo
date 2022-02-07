@@ -1,14 +1,14 @@
 import React from "react";
 import SplitLine from "@/components/SplitLine";
 import QueryTitle from "@/components/QueryTitle";
-import IChildrenOnly from "@/module/IChildrenOnly";
 import SectionContent from "@/components/SectionContent";
 import styles from "./Idiom.module.scss";
 import Homepage from "@/module/Homepage";
 import { ModeType } from "@/components/Navbar";
+import AccentFont from "@/components/AccentFont";
 
 export default class Idiom extends Homepage {
-	static mode: ModeType = "idiom";
+	static get mode(): ModeType { return "idiom"; }
 	render() {
 		return (
 			<article className={this.props.className}>
@@ -16,9 +16,9 @@ export default class Idiom extends Homepage {
 				<SectionContent>
 					<section>
 						输入成语中的汉字，未知的用
-						<AccentFont>?</AccentFont>
+						<AccentFont paddingSurround>?</AccentFont>
 						和
-						<AccentFont>*</AccentFont>
+						<AccentFont paddingSurround>*</AccentFont>
 						代替。
 					</section>
 					<section>
@@ -46,13 +46,4 @@ export default class Idiom extends Homepage {
 			</article>
 		);
 	}
-}
-
-function AccentFont(props: IChildrenOnly) {
-	return (
-		<span style={{
-			color: "var(--primary-color)",
-			padding: "0 0.25em",
-		}}>{props.children}</span>
-	);
 }

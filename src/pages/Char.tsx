@@ -8,7 +8,7 @@ import Homepage from "@/module/Homepage";
 import { ModeType } from "@/components/Navbar";
 
 export default class Char extends Homepage {
-	static mode: ModeType = "char";
+	static get mode(): ModeType { return "char"; }
 	render() {
 		return (
 			<article className={this.props.className}>

@@ -1,6 +1,5 @@
 import React from "react";
 import Root from "./Root";
-import "./BgPic.scss";
 import styles from "./Container.module.scss";
 import Navbar, { ModeType } from "./Navbar";
 import Homepage from "@/module/Homepage";
@@ -59,7 +58,7 @@ export default class Container extends React.Component<{}, IContainerState> {
 				rightMode: undefined,
 			});
 			resolve(true);
-		}, 250));
+		}, parseInt(styles.tabTransitionDuration)));
 	}
 	public static compareMode(mode1: ModeType, mode2: ModeType): CompareModeResult {
 		const getIndex = (mode: ModeType) => [...Navbar.modes.keys()].indexOf(mode);

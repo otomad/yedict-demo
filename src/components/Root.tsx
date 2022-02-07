@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import bgpic from "@/components/BgPic.module.scss";
+import bgpic from "@/components/BgPic.module.scss";
 
 import Header from "./Header";
 import SearchPanel from "./SearchPanel";
@@ -31,10 +31,10 @@ export default class Root extends React.Component {
 	public render(): React.ReactNode {
 		return (
 			<>
+				<div className={bgpic.bgpic} />
 				<Header />
 				<SearchPanel />
 				{/* 𰻞𰻞面 */}
-				{/* <div className={bgpic.bgpic} /> */}
 				<Container />
 				<Footer />
 			</>
