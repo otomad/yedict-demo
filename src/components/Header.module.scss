@@ -1,5 +1,7 @@
 @import "~@/style/variable";
 
+$header-height: 3rem;
+
 .header {
 	background-color: var(--header-background-color);
 	padding: 0.5rem 1rem;
@@ -8,6 +10,7 @@
 	align-items: center;
 	box-shadow: 0 3px 10px transparentize($color: black, $amount: 1 - 0.35);
 	user-select: none;
+	height: $header-height;
 
 	button {
 		appearance: none;
@@ -19,11 +22,6 @@
 		font-size: 1rem;
 		padding: 0.3rem 0.5rem;
 		margin-left: 0.3rem;
-
-		// &,
-		// > i {
-		// 	transition: all 250ms $ease-out-cubic, color 100ms $ease-out-cubic;
-		// }
 
 		&:hover:not(:active) {
 			background-color: var(--hover-color);
@@ -45,6 +43,12 @@
 				box-shadow: $focus-border var(--primary-box-shadow-color);
 			}
 		}
+	}
+
+	+ div {
+		overflow-y: auto;
+		height: calc(100vh - #{$header-height});
+		transition: none !important;
 	}
 }
 

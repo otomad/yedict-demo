@@ -1,0 +1,13 @@
+.card {
+	box-shadow: 0 1px 4px 0 transparentize(black, 1 - 0.37);
+	border-radius: 0.5rem;
+	border: 1px solid var(--search-bar-border-color);
+	margin: 1rem;
+	padding: 1rem 1.5rem;
+	background-color: var(--header-background-color);
+
+	> h4 {
+		margin: 0 0 1rem;
+		font-weight: bold;
+	}
+}

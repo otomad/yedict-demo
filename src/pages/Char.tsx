@@ -28,6 +28,7 @@ export default class Char extends Homepage {
 				}}>
 					<embed src={zisea} type="image/svg+xml" style={{
 						borderRadius: "2rem",
+						marginBottom: "2rem",
 					}} />
 				</section>
 			</article>

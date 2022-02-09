@@ -3,16 +3,16 @@
 $tab-transition-duration: 400ms;
 
 .container {
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0;
 	display: flex;
 	overflow-x: hidden;
 
 	> * {
-		position: absolute;
 		width: 100%;
 		left: 0;
 		opacity: 1;
 		transition: all $tab-transition-duration cubic-bezier(0, 0.5, 0.2, 1);
+		z-index: 2;
 		
 		&.hideLeft {
 			left: -100vw;
@@ -23,6 +23,10 @@ $tab-transition-duration: 400ms;
 			left: 100vw;
 			opacity: 0;
 		}
+	}
+	
+	&.transiting > * {
+		position: absolute;
 	}
 }
 
