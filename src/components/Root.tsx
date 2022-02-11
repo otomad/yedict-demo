@@ -6,9 +6,16 @@ import Header from "./Header";
 import SearchPanel from "./SearchPanel";
 import Footer from "./Footer";
 import Container from "./Container";
+import Loading from "./Loading";
+import Result from "./Result";
+
+export enum ContainerType {
+	HOMEPAGE, LOADING, RESULT
+}
 
 interface IRootState {
 	scrollVar: number;
+	containerType: ContainerType;
 }
 
 export default class Root extends React.Component<{}, IRootState> {
@@ -17,6 +24,8 @@ export default class Root extends React.Component<{}, IRootState> {
 	public searchPanel?: SearchPanel = undefined;
 	public container?: Container = undefined;
 	public footer?: Footer = undefined;
+	public loading?: Loading = undefined;
+	public result?: Result = undefined;
 	//#endregion
 
 	//#region 根元素声明部分
@@ -32,6 +41,7 @@ export default class Root extends React.Component<{}, IRootState> {
 		Root.root = this;
 		this.state = {
 			scrollVar: 0,
+			containerType: ContainerType.HOMEPAGE
 		};
 		this.belowHeader = React.createRef<HTMLDivElement>();
 		window.addEventListener("scroll", this.scrollBgPic);
@@ -53,14 +63,19 @@ export default class Root extends React.Component<{}, IRootState> {
 	public addBelowHeaderScrollListener(listener: () => void) {
 		this.belowHeaderScrollListener.push(listener);
 	}
+	public setContainerType = (containerType: ContainerType) => {
+		this.setState({ containerType });
+	}
 	public render(): React.ReactNode {
 		return (
 			<>
 				<Header />
-				<div onScroll={this.scrollBgPic} ref={this.belowHeader}>
+				<div onScroll={this.scrollBgPic} ref={this.belowHeader} style={{ scrollBehavior: "smooth" }}>
 					<div className={bgpic.bgpic} style={{ "--scroll-var": this.state.scrollVar }} />
 					<SearchPanel />
-					<Container />
+					<Container hidden={this.state.containerType !== ContainerType.HOMEPAGE} />
+					<Loading hidden={this.state.containerType !== ContainerType.LOADING} />
+					<Result hidden={this.state.containerType !== ContainerType.RESULT} />
 					<Footer />
 				</div>
 			</>

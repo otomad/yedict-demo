@@ -1,0 +1,50 @@
+.loadingPage {
+	margin: 1.5rem;
+}
+
+.loadingRow {
+	display: flex;
+	align-items: center;
+}
+
+$size: 35px;
+.loadingCircular {
+	width: $size;
+	height: $size;
+	animation: rotate 2s linear infinite;
+	margin-right: 0.5rem;
+
+	.path {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+		stroke: #fa7;
+		animation: dash 1.5s ease-in-out infinite;
+	}
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+		filter: hue-rotate(360deg);
+	}
+}
+
+@keyframes dash {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 89, 200;
+		stroke-dashoffset: -35px;
+	}
+	100% {
+		stroke-dasharray: 89, 200;
+		stroke-dashoffset: -124px;
+	}
+}
+
+.failed {
+	margin-right: 0.5rem;
+	font-size: $size;
+}

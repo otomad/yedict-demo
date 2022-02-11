@@ -3,14 +3,15 @@ import Root from "./Root";
 import styles from "./Header.module.scss";
 import theme from "@/module/NightTime";
 import siteName from "@/module/getSiteName";
-// import logo from "@/img/logo.svg";
 import Logo from "@/components/Logo";
 import Icon from "./Icon";
+import classNames from "@/../node_modules/classnames/index";
 
 type ThemeType = "light" | "dark";
 
 interface IHeaderState {
 	curTheme: ThemeType;
+	showSearch: boolean;
 }
 
 export default class Header extends React.Component<{}, IHeaderState> {
@@ -19,8 +20,10 @@ export default class Header extends React.Component<{}, IHeaderState> {
 		Root.r.header = this;
 		this.state = {
 			curTheme: this.getTheme(),
+			showSearch: false,
 		};
 		theme.addEvents(this.updateTheme);
+		Root.r.addBelowHeaderScrollListener(this.setHeaderSearchBarVisible);
 	}
 	private changeTheme = () => {
 		theme.isDark = !theme.isDark;
@@ -44,15 +47,29 @@ export default class Header extends React.Component<{}, IHeaderState> {
 			icon: "moon-o",
 		},
 	};
+	private onClickHeaderSearchBarHandler = (): void => Root.r.searchPanel?.focusSearchBar();
+	private setHeaderSearchBarVisible = () => {
+		const isSearchBarVisible: boolean = (Root.r.searchPanel?.searchBar?.inputRef.current?.getBoundingClientRect().top ?? 0) > 0;
+		this.setState({
+			showSearch: !isSearchBarVisible
+		});
+	}
 	public render(): React.ReactNode {
 		return (
 			<header className={styles.header}>
 				<div>
 					<span id="title" className={styles.ziseaLogo}>
-						{/* <embed src={logo} /> */}
 						<Logo className={styles.logo} />
 						{siteName}
 					</span>
+					<div className={classNames({
+						[styles.headerSearch]: true,
+						[styles.show]: this.state.showSearch,
+					})}>
+						<div onClick={this.onClickHeaderSearchBarHandler}>
+							<Icon icon="search" />
+						</div>
+					</div>
 				</div>
 				<div>
 					<button

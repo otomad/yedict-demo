@@ -9,6 +9,7 @@ import Char from "@/pages/Char";
 import Idiom from "@/pages/Idiom";
 import classNames from "@/../node_modules/classnames/index";
 import Half from "@/pages/Half";
+import IHiddenOnly from "@/module/IHiddenOnly";
 //#endregion
 
 enum CompareModeResult {
@@ -24,8 +25,8 @@ interface IContainerState {
 	isTransiting: boolean;
 }
 
-export default class Container extends React.Component<{}, IContainerState> {
-	public constructor(props: {}) {
+export default class Container extends React.Component<IHiddenOnly, IContainerState> {
+	public constructor(props: IHiddenOnly) {
 		super(props);
 		Root.r.container = this;
 		this.state = {
@@ -109,7 +110,7 @@ export default class Container extends React.Component<{}, IContainerState> {
 			<div className={classNames({
 				[styles.container]: true,
 				[styles.transiting]: this.state.isTransiting
-			})}>
+			})} hidden={this.props.hidden}>
 				{Container.homepages.map((Homepage, i) => {
 					const key = `homepage-${i}`;
 					if (Homepage.mode === this.state.curMode)

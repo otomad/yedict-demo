@@ -1,13 +1,25 @@
-.card {
+fieldset.card {
 	box-shadow: 0 1px 4px 0 transparentize(black, 1 - 0.37);
 	border-radius: 0.5rem;
-	border: 1px solid var(--search-bar-border-color);
+	border: none;
 	margin: 1rem;
-	padding: 1rem 1.5rem;
+	padding: 0.75rem 1.5rem;
 	background-color: var(--header-background-color);
 
-	> h4 {
-		margin: 0 0 1rem;
+	> legend {
 		font-weight: bold;
+		font-size: 1.5rem;
+
+		&::after {
+			content: "";
+			width: calc(100% + 1rem);
+			$height: 12px;
+			height: $height;
+			border-radius: $height;
+			background-color: var(--primary-color);
+			display: block;
+			margin-top: -12px;
+			margin-left: -0.5rem;
+		}
 	}
 }

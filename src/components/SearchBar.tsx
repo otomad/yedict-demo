@@ -42,9 +42,7 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
 		this.inputRef.current?.focus();
 	}
 	public getValue = () => this.state.value;
-	public query = () => {
-		void 0;
-	}
+	public query = () => this.props.parent.query();
 	public render() {
 		return (
 			<div className={classNames({
