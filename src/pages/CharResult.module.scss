@@ -1,0 +1,90 @@
+@import "~@/style/variable";
+
+.charResult {
+	@media #{$computer} {
+		display: grid;
+		padding: 1.5rem 1rem;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	> *:nth-child(1) {
+		margin: 0 1rem 0 0;
+
+		@media #{$mobile-phone} {
+			margin: 0 0 1rem 0;
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+		}
+	}
+
+	> *:nth-child(2) {
+		@media #{$computer} {
+			border-left: 1px dashed var(--search-bar-border-color);
+		}
+	}
+}
+
+$variant-font-size: 20px;
+
+.variants {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+
+	* {
+		font-size: $variant-font-size;
+		display: block;
+		margin: 1.5px;
+	}
+
+	img {
+		width: $variant-font-size;
+		height: $variant-font-size;
+		mix-blend-mode: multiply;
+
+		#{$dark-theme} & {
+			filter: invert(1);
+			mix-blend-mode: screen;
+		}
+	}
+
+	a:active {
+		transform: scale(0.8);
+	}
+}
+
+.infoBoxArea {
+	flex-grow: 1;
+}
+
+table.infoBox {
+	border-spacing: 0;
+
+	td {
+		border-bottom: 1px solid var(--search-bar-border-color);
+		padding: 0.25rem;
+		vertical-align: top;
+
+		&:not([colspan]):first-child {
+			// text-align: center;
+			white-space: nowrap;
+			width: 0;
+		}
+	}
+
+	tr:hover {
+		background-color: var(--hover-color);
+	}
+}
+
+.adjacentChars {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5rem;
+	font-size: 1.2rem;
+}
+
+:export {
+	variantFontSize: $variant-font-size;
+}

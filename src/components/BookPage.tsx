@@ -1,8 +1,9 @@
 import React from "react";
+import styles from "./BookPage.module.scss";
 
 interface IBookPageProps {
 	pages: number;
-	children?: JSX.Element;
+	children?: React.ReactNode;
 	className?: string;
 	outerClassName?: string;
 }
@@ -15,14 +16,19 @@ export default class BookPage extends React.Component<IBookPageProps, {}> {
 	public render() {
 		const props = this.props;
 		let remain = props.pages;
-		function nest(item?: JSX.Element): JSX.Element {
-			let className: string = props.className ?? "";
-			if (remain === props.pages && props.outerClassName)
+		function nest(item?: React.ReactNode): JSX.Element {
+			let className: string | undefined = props.className ?? "";
+			if (remain === 1 && props.outerClassName)
 				className += " " + props.outerClassName;
 			remain--;
+			if (className === "") className = undefined;
 			const inner: JSX.Element = <div className={className}>{item}</div>;
 			return remain > 0 ? nest(inner) : inner;
 		}
 		return nest(props.children);
 	}
+	protected static defaultProps: Partial<IBookPageProps> = {
+		className: styles.bookPage,
+		outerClassName: styles.bookPageOuter,
+	};
 }

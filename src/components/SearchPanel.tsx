@@ -44,6 +44,9 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 			case "half":
 				deal("json/half-test.json");
 				break;
+			case "char":
+				deal("json/char-test.json");
+				break;
 			default:
 				break;
 		}

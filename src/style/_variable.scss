@@ -1,2 +1,5 @@
 $light-theme: ':root';
 $dark-theme: ':root[data-theme="dark"]';
+
+$mobile-phone: '(max-width: 991px)';
+$computer: '(min-width: 992px)';

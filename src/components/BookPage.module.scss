@@ -1,0 +1,16 @@
+@import "~@/style/variable";
+
+@media #{$computer} {
+	.bookPage {
+		border: 1px solid var(--search-bar-border-color);
+		border-radius: 1rem;
+		padding: 0 6px;
+		box-shadow: 0 1px 4px 0 transparentize(black, 1 - 0.37);
+		border-top-width: 0;
+		border-bottom-width: 0;
+
+		&.bookPageOuter {
+			border-width: 1px !important;
+		}
+	}
+}

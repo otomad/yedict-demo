@@ -1,5 +1,6 @@
 import IHiddenOnly from "@/module/IHiddenOnly";
 import ResultPage from "@/module/ResultPage";
+import CharResult from "@/pages/CharResult";
 import HalfResult from "@/pages/HalfResult";
 import React from "react";
 import { ModeType } from "./Navbar";
@@ -22,7 +23,8 @@ export default class Result extends React.Component<IHiddenOnly, IResultState> {
 		Root.r.result = this;
 	}
 	private static map = new Map<ModeType, typeof ResultPage>([
-		["half", HalfResult]
+		["half", HalfResult],
+		["char", CharResult],
 	]);
 	public setData = (data: IResult) => {
 		this.setState({ data });

@@ -1,3 +1,5 @@
+@import "~@/style/mixins";
+
 .searchBar {
 	background-color: var(--header-background-color);
 	display: flex;
@@ -8,6 +10,7 @@
 	overflow: hidden;
 	height: 2.25rem;
 	border: 1px solid var(--search-bar-border-color);
+	@include blur;
 
 	&.focus {
 		border-color: var(--primary-color);

@@ -1,0 +1,5 @@
+@mixin blur {
+	:root[blur] & {
+		backdrop-filter: blur(10px);
+	}
+}

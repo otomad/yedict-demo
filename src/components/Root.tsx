@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import bgpic from "@/components/BgPic.module.scss";
+import belowHeaderStyles from "@/components/BelowHeader.module.scss";
 
 import Header from "./Header";
 import SearchPanel from "./SearchPanel";
@@ -70,7 +71,7 @@ export default class Root extends React.Component<{}, IRootState> {
 		return (
 			<>
 				<Header />
-				<div onScroll={this.scrollBgPic} ref={this.belowHeader} style={{ scrollBehavior: "smooth" }}>
+				<div onScroll={this.scrollBgPic} ref={this.belowHeader} className={belowHeaderStyles.belowHeader}>
 					<div className={bgpic.bgpic} style={{ "--scroll-var": this.state.scrollVar }} />
 					<SearchPanel />
 					<Container hidden={this.state.containerType !== ContainerType.HOMEPAGE} />

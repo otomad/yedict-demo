@@ -1,3 +1,5 @@
+@import "~@/style/mixins";
+
 fieldset.card {
 	box-shadow: 0 1px 4px 0 transparentize(black, 1 - 0.37);
 	border-radius: 0.5rem;
@@ -5,6 +7,7 @@ fieldset.card {
 	margin: 1rem;
 	padding: 0.75rem 1.5rem;
 	background-color: var(--header-background-color);
+	// @include blur;
 
 	> legend {
 		font-weight: bold;

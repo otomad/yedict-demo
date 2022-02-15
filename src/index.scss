@@ -56,8 +56,9 @@ $global-colors: (
 *::before,
 *::after {
 	box-sizing: border-box;
-	transition: all 250ms $ease-out-cubic, color 100ms $ease-out-cubic, fill 100ms $ease-out-cubic;
+	transition: all 250ms $ease-out-cubic, color 100ms $ease-out-cubic, fill 100ms $ease-out-cubic, backdrop-filter 0ms;
 	outline: none !important;
+	// overflow-x: hidden;
 }
 
 html,

@@ -54,7 +54,7 @@ export default class Navbar extends React.Component<INavbarProps, {}> {
 			</nav>
 		);
 	}
-	public static defaultProps: Partial<INavbarProps> = {
+	protected static defaultProps: Partial<INavbarProps> = {
 		curMode: "char",
 	};
 }

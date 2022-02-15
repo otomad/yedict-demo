@@ -12,13 +12,15 @@ interface IPaginationState {
 	pageInput: number;
 }
 
+const ELLIPSIS = "…";
+
 export default class Pagination extends React.Component<IPaginationProps, IPaginationState> {
 	public constructor(props: IPaginationProps) {
 		super(props);
 		if (props.curPage < 1 || props.pagesCount < 1)
 			throw new RangeError("Cannot given prop args less than 1!");
 		this.state = {
-			pageInput: 1,
+			pageInput: 0,
 		};
 	}
 	/**
@@ -42,23 +44,35 @@ export default class Pagination extends React.Component<IPaginationProps, IPagin
 		for (let i = _.min; i <= _.max; i++) ret.push(i);
 		return ret;
 	}
+	private static getRelativeAndEndpointsPages(curPage: number, pagesCount: number, num: number = 7): (number | typeof ELLIPSIS)[] {
+		const ret: (number | typeof ELLIPSIS)[] = this.getRelativePages(curPage, pagesCount, num);
+		if (ret.length < 5) return ret;
+		if (ret[0] !== 1) {
+			ret[0] = 1;
+			ret[1] = ELLIPSIS;
+		}
+		if (ret[ret.length - 1] !== pagesCount) {
+			ret[ret.length - 1] = pagesCount;
+			ret[ret.length - 2] = ELLIPSIS;
+		}
+		return ret;
+	}
 	private handleChange = (event: { target: { value: string; }; }) => {
-		const num: number = parseInt((event.target.value || "0").replace(/[^0-9]/g, ""))
+		let num: number = parseInt((event.target.value || "0").replace(/[^0-9]/g, ""));
+		if (num > this.props.pagesCount) num = this.props.pagesCount;
 		this.setState({ pageInput: num });
 	}
 	public render(): React.ReactNode {
 		return (
 			<div className={styles.pagination}>
-				<button><Icon icon="angle-double-left" fixedWidth /></button>
-				<button><Icon icon="angle-left" fixedWidth /></button>
-				{Pagination.getRelativePages(this.props.curPage, this.props.pagesCount).map((page, index) =>
+				{Pagination.getRelativeAndEndpointsPages(this.props.curPage, this.props.pagesCount).map((page, index, array) => (
 					<button key={`page-index-${index}`} className={classNames({
-						[styles.current]: page === this.props.curPage
-					})}>{page}</button>
-				)}
-				<button><Icon icon="angle-right" fixedWidth /></button>
-				<button><Icon icon="angle-double-right" fixedWidth /></button>
-				<input type="text" value={this.state.pageInput} onChange={this.handleChange} />
+						[styles.current]: page === this.props.curPage,
+						[styles.ellipsis]: page === ELLIPSIS,
+						[styles.beforeEllipsis]: array[index + 1] === ELLIPSIS,
+					})} disabled={page === ELLIPSIS}>{page}</button>
+				))}
+				<input type="text" value={this.state.pageInput >= 1 ? this.state.pageInput : ""} onChange={this.handleChange} placeholder={this.props.curPage.toString()} />
 				<button><Icon icon="arrow-right" fixedWidth /></button>
 			</div>
 		);

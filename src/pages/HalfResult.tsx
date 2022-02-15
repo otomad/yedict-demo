@@ -3,16 +3,18 @@ import IndexItem from "@/components/IndexItem";
 import Pagination from "@/components/Pagination";
 import ResultPage from "@/module/ResultPage";
 import React from "react";
+import styles from "@/components/IndexItem.module.scss";
+import stringMarkInternalLink from "@/module/stringMarkInternalLink";
 
 interface IHalfResultData {
 	mode: "half";
-	query?: string;
-	charCount?: number;
-	pagesCount?: number;
-	currentPage?: number;
-	list?: {
-		char?: string;
-		explain?: string;
+	query: string;
+	charCount: number;
+	pagesCount: number;
+	currentPage: number;
+	list: {
+		char: string;
+		explain: string;
 	}[];
 };
 
@@ -31,9 +33,9 @@ export default class HalfResult extends ResultPage<IHalfResultData> {
 					{this.props.data?.currentPage}
 					&nbsp;页。
 				</p>
-				<div>
+				<div className={styles.indexList}>
 					{this.props.data?.list?.map((item, i) =>
-						<IndexItem head={item.char ?? ""} key={`item-${i}`}>{item.explain}</IndexItem>
+						<IndexItem head={item.char ?? ""} key={`item-${i}`}>{stringMarkInternalLink(item.explain)}</IndexItem>
 					)}
 				</div>
 				<Pagination curPage={this.props.data?.currentPage ?? 1} pagesCount={this.props.data?.pagesCount ?? 1} />
