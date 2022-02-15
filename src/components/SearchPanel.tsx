@@ -3,6 +3,7 @@ import Root, { ContainerType } from "./Root";
 import Navbar, * as NavbarTypes from "./Navbar";
 import SearchBar from "./SearchBar";
 import { LoadingStatus } from "./Loading";
+import urlState from "@/module/UrlState";
 
 interface ISearchPanelState {
 	curMode: NavbarTypes.ModeType;
@@ -24,6 +25,7 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		});
 		Root.r.setContainerType(ContainerType.HOMEPAGE);
 		Root.r.container?.changeMode(mode);
+		urlState.inject("m", mode);
 	}
 	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
 		return Navbar.modes.get(mode) as NavbarTypes.ModeCaptionType;
@@ -66,5 +68,9 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 					Root.r.footer?.isScrollable();
 				});
 		}
+		urlState.inject({
+			m: this.state.curMode,
+			q: this.searchBar?.getValue(),
+		});
 	}
 }
