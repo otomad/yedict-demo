@@ -32,7 +32,7 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		});
 		Root.r.setContainerType(ContainerType.HOMEPAGE);
 		Root.r.container?.changeMode(mode);
-		urlState.inject(urlStateKey.mode, mode);
+		if (!this.isPopState) urlState.inject(urlStateKey.mode, mode);
 		setTimeout(() => { Root.r.footer?.isScrollable(); }, 0);
 	}
 	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
@@ -76,17 +76,20 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 					Root.r.footer?.isScrollable();
 				});
 		}
-		urlState.inject({
+		if (!this.isPopState) urlState.inject({
 			[urlStateKey.mode]: this.state.curMode,
 			[urlStateKey.query]: this.searchBar?.getValue(),
 		});
 	}
+	private isPopState: boolean = false;
 	public inquire = (mode: NavbarTypes.ModeType, keyword?: string | null) => {
+		this.isPopState = true;
 		this.navigate(mode);
 		if (keyword) {
 			this.setValue(keyword);
 			this.query();
 		}
+		this.isPopState = false;
 	}
 	private readUrlState = () => {
 		let mode = urlState.get(urlStateKey.mode) as NavbarTypes.ModeType;
