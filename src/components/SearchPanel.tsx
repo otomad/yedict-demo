@@ -33,6 +33,7 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		Root.r.setContainerType(ContainerType.HOMEPAGE);
 		Root.r.container?.changeMode(mode);
 		urlState.inject(urlStateKey.mode, mode);
+		setTimeout(() => { Root.r.footer?.isScrollable(); }, 0);
 	}
 	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
 		return Navbar.modes.get(mode) as NavbarTypes.ModeCaptionType;
