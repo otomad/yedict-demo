@@ -8,7 +8,7 @@ export default function stringMarkInternalLink(str: string): JSX.Element {
 	for (let i = 0; i < arr.length; i++) {
 		const para = arr[i];
 		if (para === "\n")
-			arr[i] = <br key={`br-${i}`} />;
+			arr[i] = React.createElement("br", { key: `br-${i}` }); // <br key={`br-${i}`} />;
 		if (typeof para === "string" && para.match("【")) {
 			arr[i] = para.replace(/【([^】]+)】/g, "【\n\r$1\n】").split("\n");
 			{
@@ -16,10 +16,13 @@ export default function stringMarkInternalLink(str: string): JSX.Element {
 				for (let j = 0; j < para.length; j++) {
 					const word = para[j];
 					if (typeof word === "string" && word[0] === "\r")
-						para[j] = <a key={`a-${i}-${j}`} className={hyperlinkStyle.waveLink}>{word.slice(1)}</a>;
+						para[j] = React.createElement("a", {
+							key: `a-${i}-${j}`,
+							className: hyperlinkStyle.waveLink,
+						}, word.slice(1)); // <a key={`a-${i}-${j}`} className={hyperlinkStyle.waveLink}>{word.slice(1)}</a>;
 				}
 			}
 		}
 	}
-	return <>{arr.flat()}</>;
+	return React.createElement(React.Fragment, null, arr.flat()); // <>{arr.flat()}</>;
 }

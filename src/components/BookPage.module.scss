@@ -14,3 +14,9 @@
 		}
 	}
 }
+
+@media #{$mobile-phone} {
+	.bookPage.bookPageOuter {
+		margin: 2rem 0;
+	}
+}

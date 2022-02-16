@@ -9,6 +9,11 @@ interface ISearchPanelState {
 	curMode: NavbarTypes.ModeType;
 }
 
+const urlStateKey = {
+	mode: "m",
+	query: "q",
+};
+
 export default class SearchPanel extends React.Component<{}, ISearchPanelState> {
 	public navBar?: Navbar = undefined;
 	public searchBar?: SearchBar = undefined;
@@ -18,6 +23,8 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		this.state = {
 			curMode: "char"
 		};
+		window.addEventListener("load", this.readUrlState);
+		window.addEventListener("popstate", this.readUrlState);
 	}
 	public navigate(mode: NavbarTypes.ModeType) {
 		this.setState({
@@ -25,7 +32,7 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		});
 		Root.r.setContainerType(ContainerType.HOMEPAGE);
 		Root.r.container?.changeMode(mode);
-		urlState.inject("m", mode);
+		urlState.inject(urlStateKey.mode, mode);
 	}
 	public static getModeCaption(mode: NavbarTypes.ModeType): NavbarTypes.ModeCaptionType {
 		return Navbar.modes.get(mode) as NavbarTypes.ModeCaptionType;
@@ -69,8 +76,24 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 				});
 		}
 		urlState.inject({
-			m: this.state.curMode,
-			q: this.searchBar?.getValue(),
+			[urlStateKey.mode]: this.state.curMode,
+			[urlStateKey.query]: this.searchBar?.getValue(),
 		});
+	}
+	public inquire = (mode: NavbarTypes.ModeType, keyword?: string | null) => {
+		this.navigate(mode);
+		if (keyword) {
+			this.setValue(keyword);
+			this.query();
+		}
+	}
+	private readUrlState = () => {
+		let mode = urlState.get(urlStateKey.mode) as NavbarTypes.ModeType;
+		if (mode === null || !Navbar.modes.has(mode)) {
+			console.error("Load mode failed!");
+			mode = "char";
+		}
+		const query = urlState.get(urlStateKey.query);
+		this.inquire(mode, query);
 	}
 }
