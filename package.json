@@ -29,7 +29,8 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "webpack --mode=development --config webpack.config.js --hot",
+		"build": "webpack --mode=development --config webpack.dev.js --hot",
+		"build-prod": "webpack --mode=development --config webpack.prod.js --hot",
 		"dev": "webpack serve"
 	},
 	"keywords": [],

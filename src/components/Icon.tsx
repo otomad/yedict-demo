@@ -1,5 +1,5 @@
 import React from "react";
-import "font-awesome/css/font-awesome.css";
+// import "font-awesome/css/font-awesome.css";
 
 type IIconProps = React.HTMLAttributes<HTMLElement> & {
 	icon: string;

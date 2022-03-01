@@ -95,18 +95,19 @@ header.header {
 }
 
 @font-face {
-	font-family: "FZTanHeiT-B-GB";
-	src: url("@/fonts/FZTanHeiT-B-GB.woff");
+	font-family: "FZTanHei";
+	src: url("@/fonts/FZTanHei-B-LOGO.woff");
 }
 
 .ziseaLogo {
 	font: {
-		family: "FZTanHeiT-B-GB", sans-serif !important;
+		family: "FZTanHei", sans-serif !important;
 		size: 1.5rem;
 	}
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	cursor: pointer;
 
 	embed,
 	.logo {

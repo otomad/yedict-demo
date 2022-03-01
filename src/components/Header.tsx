@@ -54,11 +54,12 @@ export default class Header extends React.Component<{}, IHeaderState> {
 			showSearch: !isSearchBarVisible
 		});
 	}
+	private backToHomepage = () => Root.r.searchPanel?.navigate("char");
 	public render(): React.ReactNode {
 		return (
 			<header className={styles.header}>
 				<div>
-					<span id="title" className={styles.ziseaLogo}>
+					<span id="title" className={styles.ziseaLogo} onClick={this.backToHomepage}>
 						<Logo className={styles.logo} />
 						{siteName}
 					</span>
@@ -76,10 +77,12 @@ export default class Header extends React.Component<{}, IHeaderState> {
 						title={Header.themeRes[this.state.curTheme].title}
 						onClick={this.changeTheme}
 					>
-						<Icon icon={Header.themeRes[this.state.curTheme].icon} fixedWidth />
+						<Icon icon={Header.themeRes[this.state.curTheme].icon} fixedWidth marginRight />
+						{Header.themeRes[this.state.curTheme].title}
 					</button>
-					<button title="下载" onClick={goToDownloadPage}>
-						<Icon icon="download" fixedWidth />
+					<button title="下载页" onClick={goToDownloadPage}>
+						<Icon icon="download" fixedWidth marginRight />
+						下载页
 					</button>
 				</div>
 			</header>

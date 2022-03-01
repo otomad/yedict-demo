@@ -16,12 +16,13 @@ nav.navbar {
 
 		&::after {
 			content: "";
-			width: 100%;
+			width: 20px;
 			$height: 5px;
 			height: $height;
 			background-color: var(--primary-color);
 			display: block;
 			border-radius: $height;
+			margin: 0 auto;
 			margin-top: 1px;
 			transform: translateX(50%);
 			opacity: 0;

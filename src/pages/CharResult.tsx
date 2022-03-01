@@ -59,7 +59,7 @@ export default class CharResult extends ResultPage<ICharResultData> {
 						<div className={styles.infoBoxArea}>
 							<div className={styles.adjacentChars}>
 								<div><a className={hyperlinkStyle.waveLink}><Icon icon="angle-left" marginRight />{data.prevChar.char}</a></div>
-								<div><AccentFont>{data.code}</AccentFont></div>
+								<div><AccentFont>{data.char}({data.code})</AccentFont></div>
 								<div><a className={hyperlinkStyle.waveLink}>{data.nextChar.char}<Icon icon="angle-right" marginLeft /></a></div>
 							</div>
 							<table className={styles.infoBox} width="100%">
