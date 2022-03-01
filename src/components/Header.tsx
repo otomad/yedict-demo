@@ -6,6 +6,7 @@ import siteName from "@/module/getSiteName";
 import Logo from "@/components/Logo";
 import Icon from "./Icon";
 import classNames from "@/../node_modules/classnames/index";
+import IChildrenOnly from "@/module/IChildrenOnly";
 
 type ThemeType = "light" | "dark";
 
@@ -39,11 +40,11 @@ export default class Header extends React.Component<{}, IHeaderState> {
 	}
 	private static themeRes = {
 		light: {
-			title: "浅色主题",
+			title: "浅色",
 			icon: "sun-o",
 		},
 		dark: {
-			title: "深色主题",
+			title: "深色",
 			icon: "moon-o",
 		},
 	};
@@ -56,6 +57,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
 	}
 	private backToHomepage = () => Root.r.searchPanel?.navigate("char");
 	public render(): React.ReactNode {
+		const curTheme = Header.themeRes[this.state.curTheme];
 		return (
 			<header className={styles.header}>
 				<div>
@@ -74,15 +76,17 @@ export default class Header extends React.Component<{}, IHeaderState> {
 				</div>
 				<div>
 					<button
-						title={Header.themeRes[this.state.curTheme].title}
+						title={curTheme.title + "主题"}
 						onClick={this.changeTheme}
 					>
-						<Icon icon={Header.themeRes[this.state.curTheme].icon} fixedWidth marginRight />
-						{Header.themeRes[this.state.curTheme].title}
+						<Icon icon={curTheme.icon} fixedWidth marginRight />
+						{curTheme.title}
+						<HiddenOnlyInMobilePhone>主题</HiddenOnlyInMobilePhone>
 					</button>
 					<button title="下载页" onClick={goToDownloadPage}>
 						<Icon icon="download" fixedWidth marginRight />
-						下载页
+						下载
+						<HiddenOnlyInMobilePhone>页</HiddenOnlyInMobilePhone>
 					</button>
 				</div>
 			</header>
@@ -94,4 +98,8 @@ export var DOWNLOAD_PAGE_LINK = "http://cheonhyeong.com/Simplified/download.html
 
 export function goToDownloadPage(): void {
 	location.href = DOWNLOAD_PAGE_LINK;
+}
+
+function HiddenOnlyInMobilePhone(props: IChildrenOnly): JSX.Element {
+	return <span className={styles.hiddenOnlyInMobilePhone}>{props.children}</span>;
 }

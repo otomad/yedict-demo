@@ -120,3 +120,9 @@ header.header {
 		fill: var(--text-color);
 	}
 }
+
+.hiddenOnlyInMobilePhone {
+	@media #{$mobile-phone} {
+		display: none;
+	}
+}
