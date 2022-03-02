@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./Card.module.scss";
 
-export default (props: React.HTMLAttributes<HTMLFieldSetElement> & {
+export default (props: React.HTMLAttributes<HTMLDivElement> & {
 	title: string
 }) => {
 	const { className, title, ...otherProps } = props;
 	return (
-		<fieldset className={`${className} ${styles.card}`} {...otherProps}>
-			<legend>{title}</legend>
+		<div className={`${className} ${styles.card}`} {...otherProps}>
+			<h4>{title}</h4>
 			{props.children}
-		</fieldset>
+		</div>
 	);
 };

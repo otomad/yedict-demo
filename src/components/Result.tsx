@@ -31,10 +31,11 @@ export default class Result extends React.Component<IHiddenOnly, IResultState> {
 	}
 	public render(): React.ReactNode {
 		const nothing = <div />;
-		const mode = this.state.data?.mode;
-		if (!mode) return nothing;
+		// const mode = this.state.data?.mode;
+		// if (!mode) return nothing;
+		const mode = Root.r.searchPanel?.state.curMode as ModeType;
 		const R = Result.map.get(mode);
-		if (!R) return nothing;
+		if (!R || !this.state.data) return nothing;
 		return (
 			<div hidden={this.props.hidden} style={{
 				margin: "1rem"

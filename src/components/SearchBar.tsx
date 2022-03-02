@@ -45,24 +45,26 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
 	public query = () => this.props.parent.query();
 	public render() {
 		return (
-			<div className={classNames({
-				[styles.searchBar]: true,
-				[styles.focus]: this.state.isFocusSearchBar,
-			})}>
-				<input
-					type="text"
-					placeholder={this.props.placeholder}
-					onFocus={() => this.onFocusSearchBar(true)}
-					onBlur={() => this.onFocusSearchBar(false)}
-					value={this.state.value}
-					onChange={this.handleChange}
-					ref={this.inputRef}
-				/>
-				<button onClick={this.query}>
-					<div className={styles.buttonFace}>
-						<span>查询</span>
-					</div>
-				</button>
+			<div className={styles.limitWidth}>
+				<div className={classNames({
+					[styles.searchBar]: true,
+					[styles.focus]: this.state.isFocusSearchBar,
+				})}>
+					<input
+						type="text"
+						placeholder={this.props.placeholder}
+						onFocus={() => this.onFocusSearchBar(true)}
+						onBlur={() => this.onFocusSearchBar(false)}
+						value={this.state.value}
+						onChange={this.handleChange}
+						ref={this.inputRef}
+					/>
+					<button onClick={this.query}>
+						<div className={styles.buttonFace}>
+							<span>查询</span>
+						</div>
+					</button>
+				</div>
 			</div>
 		);
 	}

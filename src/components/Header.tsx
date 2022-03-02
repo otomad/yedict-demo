@@ -80,13 +80,11 @@ export default class Header extends React.Component<{}, IHeaderState> {
 						onClick={this.changeTheme}
 					>
 						<Icon icon={curTheme.icon} fixedWidth marginRight />
-						{curTheme.title}
-						<HiddenOnlyInMobilePhone>主题</HiddenOnlyInMobilePhone>
+						<HiddenOnlyInMobilePhone s={curTheme.title} h="主题" />
 					</button>
 					<button title="下载页" onClick={goToDownloadPage}>
 						<Icon icon="download" fixedWidth marginRight />
-						下载
-						<HiddenOnlyInMobilePhone>页</HiddenOnlyInMobilePhone>
+						<HiddenOnlyInMobilePhone s="下载" h="页" />
 					</button>
 				</div>
 			</header>
@@ -100,6 +98,16 @@ export function goToDownloadPage(): void {
 	location.href = DOWNLOAD_PAGE_LINK;
 }
 
-function HiddenOnlyInMobilePhone(props: IChildrenOnly): JSX.Element {
-	return <span className={styles.hiddenOnlyInMobilePhone}>{props.children}</span>;
+function HiddenOnlyInMobilePhone(props: {
+	/** 始终显示的字符。 */
+	s: string;
+	/** 仅在宽屏显示的字符。 */
+	h: string;
+}): JSX.Element {
+	return (
+		<>
+			<span>{props.s}</span>
+			<span className={styles.hiddenOnlyInMobilePhone}>{props.h}</span>
+		</>
+	);
 }

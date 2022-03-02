@@ -10,9 +10,10 @@ import React from "react";
 import styles from "./CharResult.module.scss";
 import hyperlinkStyle from "@/style/hyperlink.module.scss";
 import CharViewer from "@/components/CharViewer";
+import { getDictIndex, getIds, getRegionSource, getZiZone, isUnicode } from "@/module/getZiInfo";
 
 //#region interfaces
-interface IAdjacentChar {
+/* interface IAdjacentChar {
 	char: string;
 	code: string;
 }
@@ -44,80 +45,163 @@ interface ICharResultData {
 	prevChar: IAdjacentChar;
 	nextChar: IAdjacentChar;
 	explain: IExplain[];
+} */
+
+/** 字典索引 */
+export interface ICharResultDataIndex {
+	/** 字典名称 */
+	name: "zhonghuaZihai" | "hanyuDaZidian";
+	index: {
+		/** 页码 */
+		page: number;
+		/** 页面中第几字 */
+		number: number;
+	}
+}
+
+/** 单字地区数据 */
+interface ICharResultDataAera {
+	area: string[];
+	font: string[];
+	standardZi: string[];
+	variant: string[];
+	explaining: string;
+	cun: string[];
+}
+
+type VariantsType = string[] | [null];
+
+/** 单字数据 */
+interface ICharResultData {
+	/** ID */
+	id: number;
+	/** 显示 ID */
+	showId: number;
+	/** 笔画 */
+	stroke: number;
+	/** 部外笔画 */
+	strokeRemaining: number;
+	/** 部首 */
+	radical: string;
+	/** 国家 */
+	country: string;
+	/** 字形描述 */
+	ids: string;
+	/** 结构？ */
+	structure: number;
+	/** 释义 */
+	explaining: string;
+	/** 两分首部笔画 */
+	headPartStroke: number;
+	/** 两分首部拼音？ */
+	headPartPinyin: string;
+	/** 两分首部 */
+	headPart: string;
+	/** 相容首部 */
+	compatiableHeadPart: string;
+	/** 来源？ */
+	source: string;
+	_sybh: number;
+	/** 讨论？ */
+	discussing: string;
+	/** Unicode 编码 */
+	unicode: string;
+	/** 两分首部笔画 */
+	tailPartStroke: number;
+	/** 两分首部拼音 */
+	tailPartPinyin: string;
+	/** 两分首部 */
+	tailPart: string;
+	/** 相容尾部 */
+	compatiableTailPart: string;
+	/** 提交来源 */
+	regionSource: string;
+	/** 标准字？ */
+	standardZi: string;
+	/** 字头 */
+	zi: string;
+	/** 字形 */
+	font: string;
+	/** 前一字编码 */
+	prevCode: string;
+	/** 后一字编码 */
+	nextCode: string;
+	/** 索引 */
+	index: ICharResultDataIndex[];
+	/** 地区异体 */
+	areaVariant: {
+		HanNom: VariantsType;
+		Sawndip: VariantsType;
+	},
+	/** 地区 */
+	area: {
+		HanNom: ICharResultDataAera | null;
+		Sawndip: ICharResultDataAera | null;
+	},
+	/** 异体 */
+	variant: VariantsType;
 }
 //#endregion
 
-export default class CharResult extends ResultPage<ICharResultData> {
+const spaceDivide = (...strings: (string | number)[]): string => strings.join(" ");
+const getUnicodeChar = (uni: string): string | null => {
+	if (!isUnicode(uni) || !isFinite(parseInt(uni, 16))) return null;
+	return String.fromCodePoint(parseInt(uni, 16));
+}
+
+export default class CharResult extends ResultPage<ICharResultData[]> {
+	private get data(): ICharResultData {
+		const _data = this.props.data;
+		if (!_data || !_data.length) throw new TypeError("Null character result data!");
+		return _data[0];
+	}
+	private get isUnicode(): boolean | undefined {
+		return isUnicode(this.data.unicode);
+	}
+	private getInfoBox(): [string, React.ReactNode][] {
+		const data = this.data;
+		return [
+			["字符集", getZiZone(data.showId, data.unicode)],
+			[this.isUnicode ? "统一编码" : "临时编码", data.unicode],
+			["可复制字", data.zi],
+			["总笔画数", data.stroke],
+			["部首余笔", spaceDivide(data.radical, data.strokeRemaining)],
+			["两分字元", spaceDivide(data.headPart, data.tailPart)],
+			["字形描述", getIds(data.ids)],
+			["提交来源", <div className={styles.regionSource}>{getRegionSource(data.regionSource)}</div>],
+			["字典索引", getDictIndex(data.index)],
+			["参考资料", data.source],
+		];
+	}
 	public render() {
-		const data = this.props.data;
-		if (!data) throw new TypeError("Null character result data!");
+		const data = this.data;
 		return (
 			<BookPage pages={3}>
 				<div className={styles.charResult}>
 					<div>
-						<CharViewer char={data.char} canCopied={data.isUnicode} />
+						<CharViewer char={data.zi} canCopied={!!this.isUnicode} />
 						<div className={styles.infoBoxArea}>
 							<div className={styles.adjacentChars}>
-								<div><a className={hyperlinkStyle.waveLink}><Icon icon="angle-left" marginRight />{data.prevChar.char}</a></div>
-								<div><AccentFont>{data.char}({data.code})</AccentFont></div>
-								<div><a className={hyperlinkStyle.waveLink}>{data.nextChar.char}<Icon icon="angle-right" marginLeft /></a></div>
+								<div><a className={hyperlinkStyle.waveLink}><Icon icon="angle-left" marginRight />{getUnicodeChar(data.prevCode)}</a></div>
+								<div><AccentFont>{data.zi}({data.unicode})</AccentFont></div>
+								<div><a className={hyperlinkStyle.waveLink}>{getUnicodeChar(data.nextCode)}<Icon icon="angle-right" marginLeft /></a></div>
 							</div>
 							<table className={styles.infoBox} width="100%">
 								<tbody>
-									<tr>
-										<td colSpan={2}>{data.area}</td>
-									</tr>
-									<tr>
-										<td>{data.isUnicode ? "Unicode" : "非 Unicode 临时码"}</td>
-										<td>{data.code}</td>
-									</tr>
-									<tr>
-										<td>总笔画数</td>
-										<td>{data.strokes}</td>
-									</tr>
-									<tr>
-										<td>部首余笔</td>
-										<td>{data.radical}</td>
-									</tr>
-									<tr>
-										<td>两分字元</td>
-										<td>{data.half}</td>
-									</tr>
-									<tr>
-										<td>字形描述</td>
-										<td>{data.ids}</td>
-									</tr>
-									<tr>
-										<td>提交来源</td>
-										<td>{data.source}</td>
-									</tr>
-									<tr>
-										<td>中华字海</td>
-										<td>{data.cnzisea}</td>
-									</tr>
-									<tr>
-										<td>参考资料</td>
-										<td>{data.reference}</td>
-									</tr>
+									{this.getInfoBox().map((item, index) => (
+										<tr key={`infobox-item-${index}`}>
+											<td>{item[0]}</td>
+											<td>{item[1]}</td>
+										</tr>
+									))}
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div>
-						{data.explain.map((explain, index) => {
-							const sourceCaption = new Map<string, string>([
-								["zisea", "字海释义"],
-								["vietnamese", "越南字释义"],
-								["korean", "韩国释义"],
-							]);
-							return (
-								<section key={`explain-${index}`}>
-									<SplitLine>{sourceCaption.get(explain.source) ?? `${explain.source}释义`}</SplitLine>
-									<SectionContent>{stringMarkInternalLink(explain.content)}</SectionContent>
-									{explain.variants ? <Variants variants={explain.variants} /> : null}
-								</section>
-							);
-						})}
+						<ExplainingSection area="zisea" explaining={data.explaining} variants={data.variant} />
+						<ExplainingSection disable={!data.area.HanNom} area="HanNom" explaining={data.area.HanNom?.explaining} variants={data.areaVariant.HanNom} />
+						<ExplainingSection disable={!data.area.Sawndip} area="Sawndip" explaining={data.area.Sawndip?.explaining} variants={data.areaVariant.Sawndip} />
 					</div>
 				</div>
 			</BookPage>
@@ -125,17 +209,36 @@ export default class CharResult extends ResultPage<ICharResultData> {
 	}
 }
 
-function Variants(props: { variants: VariantsType[] }) {
+function Variants(props: { variants: VariantsType }) {
+	if (props.variants.length === 0 || props.variants[0] === null) return null;
 	return (
 		<Card title="异体字">
 			<div className={styles.variants}>
-				{props.variants.map((variant, index) => (
-					<a key={`variant-${index}`}>
-						{typeof variant === "string" ? variant :
-							<img src={variant.pic} />}
-					</a>
-				))}
+				{props.variants.map((variant, index) => {
+					const key = `variant-${index}`, char = getUnicodeChar(variant ?? "");
+					if (char) return <a key={key} className={hyperlinkStyle.waveLink}>{char}</a>;
+					else return <a key={key} className={hyperlinkStyle.waveLink}>{variant}</a>;
+				})}
 			</div>
 		</Card>
+	);
+}
+
+function ExplainingSection(props: {
+	disable?: boolean;
+	area?: string;
+	explaining?: string;
+	variants?: VariantsType;
+}): JSX.Element | null {
+	if (props.disable) return null;
+	const area = props.area === "zisea" ? "字海" :
+		props.area === "HanNom" ? "越南喃字" :
+		props.area === "Sawndip" ? "方块壮字" : props.area;
+	return (
+		<section>
+			<SplitLine>{area + "释义"}</SplitLine>
+			{props.explaining ? <SectionContent>{stringMarkInternalLink(props.explaining)}</SectionContent> : null}
+			{props.variants ? <Variants variants={props.variants} /> : null}
+		</section>
 	);
 }

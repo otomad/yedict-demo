@@ -9,12 +9,17 @@
 
 	> *:nth-child(1) {
 		margin: 0 1rem 0 0;
+		position: relative;
 
-		@media #{$mobile-phone} {
+		@media #{$tablet} {
 			margin: 0 0 1rem 0;
 			display: flex;
 			flex-direction: row;
 			align-items: flex-start;
+		}
+		
+		@media #{$mobile} {
+			display: block;
 		}
 	}
 
@@ -31,20 +36,22 @@ $variant-font-size: 20px;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-
+	
 	* {
 		font-size: $variant-font-size;
 		display: block;
 		margin: 1.5px;
+		color: var(--primary-color) !important;
 	}
 
 	img {
 		width: $variant-font-size;
 		height: $variant-font-size;
 		mix-blend-mode: multiply;
+		filter: url("@/img/filters.svg#primary-light-image");
 
 		#{$dark-theme} & {
-			filter: invert(1);
+			filter: url("@/img/filters.svg#primary-dark-image") invert(1);
 			mix-blend-mode: screen;
 		}
 	}
@@ -67,9 +74,29 @@ table.infoBox {
 		vertical-align: top;
 
 		&:not([colspan]):first-child {
-			// text-align: center;
 			white-space: nowrap;
 			width: 0;
+			text-align: justify;
+			text-align-last: justify;
+			vertical-align: middle;
+		}
+		
+		table {
+			border-spacing: 0;
+			
+			td {
+				border-bottom: none;
+				padding: 0;
+				
+				&:first-child {
+					&::before {
+						content: "《";
+					}
+					&::after {
+						content: "》";
+					}
+				}
+			}
 		}
 	}
 
@@ -83,6 +110,12 @@ table.infoBox {
 	justify-content: space-between;
 	padding: 0.5rem;
 	font-size: 1.2rem;
+}
+
+.regionSource {
+	display: grid;
+	grid-gap: 0.25rem;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
 
 :export {

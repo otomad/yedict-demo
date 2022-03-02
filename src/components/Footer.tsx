@@ -27,6 +27,7 @@ export default class Footer extends React.Component<{}, IFooterState> {
 		["字海大事记", "./about.html"],
 		["支持我们", "./support.html"],
 		["留言板", "http://www.zisea.com/tous/list.asp"],
+		["网站地图", "./sitemap.html"],
 	];
 	public setHidden = (hidden: boolean) => {
 		this.setState({ hidden });

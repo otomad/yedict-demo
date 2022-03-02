@@ -33,7 +33,7 @@
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 1rem;
 
-	@media #{$mobile-phone} {
+	@media #{$tablet} {
 		grid-template-columns: 1fr;
 	}
 }

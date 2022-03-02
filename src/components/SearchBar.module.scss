@@ -73,10 +73,16 @@
 			float: left;
 		}
 		
-		&:hover, &:focus {
+		&:hover,
+		&:focus {
 			&::before {
 				opacity: 0;
 			}
 		}
 	}
+}
+
+.limitWidth {
+	max-width: 750px;
+	margin: 0 auto;
 }

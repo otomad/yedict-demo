@@ -12,7 +12,7 @@
 	background: {
 		image: url("@/img/fx360.svg");
 		repeat: no-repeat;
-		position: calc(100% - 3rem) calc(100% * (1 - var(--scroll-var)) + 50% * var(--scroll-var));
+		position: calc(100% - 3rem) calc(90% * (1 - var(--scroll-var)) + 50% * var(--scroll-var));
 		size: 50vmin;
 	}
 	--scroll-var: 0;

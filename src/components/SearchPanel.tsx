@@ -4,6 +4,7 @@ import Navbar, * as NavbarTypes from "./Navbar";
 import SearchBar from "./SearchBar";
 import { LoadingStatus } from "./Loading";
 import urlState from "@/module/UrlState";
+declare var $: any;
 
 interface ISearchPanelState {
 	curMode: NavbarTypes.ModeType;
@@ -50,12 +51,21 @@ export default class SearchPanel extends React.Component<{}, ISearchPanelState> 
 		);
 	}
 	public query = () => {
+		if (!(this.searchBar && this.searchBar.getValue)) return;
+		const value: string = this.searchBar.getValue().toUpperCase().trim();
+		if (!value) return;
+		const hexRegExp = /[0-9a-f]+/;
 		switch (this.state.curMode) {
-			case "half":
-				deal("json/half-test.json");
-				break;
+			/* case "half":
+				deal(`http://www.zisea.com/api/getZi?ziCode=${}`);
+				break; */
 			case "char":
-				deal("json/char-test.json");
+				let code: string;
+				const matchHex = value.match(hexRegExp);
+				if (matchHex && matchHex[0] === value) code = matchHex[0];
+				else code = (value.codePointAt(0) as number).toString(16);
+				// deal(`http://www.zisea.com/api/getZi?ziCode=${code}`);
+				deal("./getZi.json");
 				break;
 			default:
 				break;

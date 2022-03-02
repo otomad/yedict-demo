@@ -52,6 +52,10 @@ header.header {
 				box-shadow: $focus-border var(--primary-box-shadow-color);
 			}
 		}
+		
+		* {
+			color: inherit !important;
+		}
 	}
 
 	+ div {
@@ -76,7 +80,7 @@ header.header {
 			align-items: center;
 			padding: 0 10px;
 			cursor: text;
-			transform: translateX(-100%);
+			transform: translateX(-105%);
 			pointer-events: none;
 
 			&:hover {
@@ -123,7 +127,9 @@ header.header {
 }
 
 .hiddenOnlyInMobilePhone {
-	@media #{$mobile-phone} {
+	// color: inherit !important;
+	
+	@media #{$mobile} {
 		display: none;
 	}
 }

@@ -3,6 +3,7 @@ import hyperlinkStyle from "@/style/hyperlink.module.scss";
 import pangu from "@/module/Pangu";
 
 export default function stringMarkInternalLink(str: string): JSX.Element {
+	str = str.replace(/<\s*br\s*\/?>/g, "\n");
 	str = pangu.spacing(str).trim().replaceAll("\r", "");
 	const arr: React.ReactNode[] = str.replaceAll("\n", "\r\n\r").split("\r");
 	for (let i = 0; i < arr.length; i++) {

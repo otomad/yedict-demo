@@ -47,7 +47,7 @@ $global-colors: (
 	&,
 	&::before,
 	&::after {
-		font-family: "Segoe UI", "lucida grande", "lucida sans unicode", lucida, Tahoma, Geneva, Verdana, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Heiti SC", "TH-Feon", Arial, sans-serif;
+		font-family: "Segoe UI", "lucida grande", "lucida sans unicode", lucida, Tahoma, Geneva, Verdana, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Heiti SC", "TH-Feon", quote, times, hei-disp-zh-CN, hei-zh-CN, ming-zh-CN, TH-Sung-TP0, TH-Sung-TP2, TH-Tshyn-P0, TH-Tshyn-P1, TH-Tshyn-P2, Arial, sans-serif;
 		color: var(--text-color);
 	}
 }
